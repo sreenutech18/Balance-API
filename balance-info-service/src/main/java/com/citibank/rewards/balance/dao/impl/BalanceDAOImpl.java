@@ -15,6 +15,8 @@ import com.citibank.rewards.balance.exception.BusinessException;
 import com.citibank.rewards.balance.exception.SystemException;
 import com.citibank.rewards.balance.model.BalanceDAORequest;
 import com.citibank.rewards.balance.model.BalanceDAOResponse;
+import com.citibank.rewards.balance.util.BalanceConstants;
+
 
 @Component
 public class BalanceDAOImpl implements BalanceDAO {
@@ -38,12 +40,17 @@ public class BalanceDAOImpl implements BalanceDAO {
 
 			properties.load(input);
 
-			String url = properties.getProperty("db-url");
-			String uname = properties.getProperty("username");
-			String pwd = properties.getProperty("password");
+
+			String url = properties.getProperty(BalanceConstants.DB_URL);
+			String uname = properties.getProperty(BalanceConstants.USER_NAME);
+			String pwd = properties.getProperty(BalanceConstants.PASSWORD);
 
 			Connection connection = DriverManager.getConnection(url, uname, pwd);
-			String sql = "{call GetBalance(?,?,?,?)}";
+			String sql = BalanceConstants.SP_CALL;
+
+
+			Connection connection = DriverManager.getConnection(url, uname, pwd);
+		
 			// csmt object
 			CallableStatement cs = connection.prepareCall(sql);
 			// prepare the input params
@@ -68,9 +75,10 @@ public class BalanceDAOImpl implements BalanceDAO {
 			if ("000".equals(dbRespCode)) {
 				// prepare the dao response. i.e convert ResultSet response into dao response
 				while (rs.next()) {
-					daoResponse.setAvailablePts(rs.getString("avail_pts"));
-					daoResponse.setEarnedPts(rs.getString("earned_pts"));
-					daoResponse.setPendingPts(rs.getString("adjusted_pts"));
+					daoResponse.setAvailablePts(rs.getString(BalanceConstants.AVAIL_PTS));
+					daoResponse.setEarnedPts(rs.getString(BalanceConstants.EARNED_PTS));
+					daoResponse.setPendingPts(rs.getString(BalanceConstants.ADJ_PTS));
+
 				}
 
 			} else if ("100".equals(dbRespCode) || "101".equals(dbRespCode) || "102".equals(dbRespCode)
