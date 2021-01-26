@@ -23,7 +23,6 @@ public class BalanceController {
 	@Autowired
 	BalanceService balanceService;
 
-	// @GetMapping(value="/balance/{cardNum}")
 	@RequestMapping(method = RequestMethod.GET , value = "/balance/{cardNum}", produces = {"application/json","application/xml"})
 	public BalanceResponse getBalance( @PathVariable("cardNum" ) String cardNum,
 			                           @RequestHeader(value="client-Id", required=false) String clientId, 
