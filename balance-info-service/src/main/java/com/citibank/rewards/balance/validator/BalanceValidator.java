@@ -10,7 +10,7 @@ public class BalanceValidator {
 
 	public void validateRequest(BalanceRequest request) throws BalanceRequestInvalidDataException {
 	
-		System.out.println("entered into validator");
+			System.out.println("entered into validator");
 		//validate the cardnumber
 		if (request.getCardNum() == null || " ".equals(request.getCardNum())) {
 
@@ -28,7 +28,7 @@ public class BalanceValidator {
 
 		if (request.getRequestId() == null || " ".equals(request.getRequestId())) {
 
-			throw new BalanceRequestInvalidDataException("bal03", "Invalid RequestId");
+			throw new BalanceRequestInvalidDataException("bal003", "Invalid RequestId");
 		}
 		
 		

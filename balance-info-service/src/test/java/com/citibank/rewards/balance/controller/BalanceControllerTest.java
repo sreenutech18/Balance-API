@@ -2,6 +2,7 @@ package com.citibank.rewards.balance.controller;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -80,7 +81,7 @@ public class BalanceControllerTest {
 				.thenThrow(new BusinessException("bal001", "invalid cardnumber"));
 		BalanceResponse balanceResp = balanceController.getBalance("13232323", "23232", "232323", "1212122");
 
-		// assertNull(balanceResp);
+		assertNull(balanceResp);
 
 	}
 
@@ -92,7 +93,7 @@ public class BalanceControllerTest {
 				.thenThrow(new SystemException("100", "invalid cardnumber"));
 		BalanceResponse balanceResp = balanceController.getBalance("13232323", "23232", "232323", "1212122");
 
-		// assertNull(balanceResp);
+		 assertNull(balanceResp);
 
 	}
 

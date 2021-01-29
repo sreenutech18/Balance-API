@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.Types;
 import java.util.Properties;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import com.citibank.rewards.balance.dao.BalanceDAO;
@@ -15,20 +16,23 @@ import com.citibank.rewards.balance.exception.BusinessException;
 import com.citibank.rewards.balance.exception.SystemException;
 import com.citibank.rewards.balance.model.BalanceDAORequest;
 import com.citibank.rewards.balance.model.BalanceDAOResponse;
+import com.citibank.rewards.balance.util.BalanceConstants;
+
 
 @Component
 public class BalanceDAOImpl implements BalanceDAO {
+	private  final static Logger logger = Logger.getLogger(BalanceDAOImpl.class);
+	public BalanceDAOResponse getBalance(final BalanceDAORequest daoReq) throws BusinessException, SystemException {
 
-	public BalanceDAOResponse getBalance(BalanceDAORequest daoReq) throws BusinessException, SystemException {
+		logger.info("Entered into DAO Layer,Request is coming from Service layer" + daoReq);
+		//System.out.println("Entered into dao :" + daoReq);
 
-		System.out.println("Entered into dao :" + daoReq);
-		
 		String env = System.getProperty("env");
 		String fileName="properties/balance-"+env+"-db.properties";
-		
+
 		System.out.println("env : "+env+" fileName :"+fileName);
-          
-		BalanceDAOResponse daoResponse = new BalanceDAOResponse();
+
+		final BalanceDAOResponse daoResponse = new BalanceDAOResponse();
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			InputStream input = BalanceDAOImpl.class.getClassLoader()
@@ -38,12 +42,17 @@ public class BalanceDAOImpl implements BalanceDAO {
 
 			properties.load(input);
 
-			String url = properties.getProperty("db-url");
-			String uname = properties.getProperty("username");
-			String pwd = properties.getProperty("password");
+
+			String url = properties.getProperty(BalanceConstants.DB_URL);
+			String uname = properties.getProperty(BalanceConstants.USER_NAME);
+			String pwd = properties.getProperty(BalanceConstants.PASSWORD);
 
 			Connection connection = DriverManager.getConnection(url, uname, pwd);
-			String sql = "{call GetBalance(?,?,?,?)}";
+			String sql = BalanceConstants.SP_CALL;
+
+
+
+
 			// csmt object
 			CallableStatement cs = connection.prepareCall(sql);
 			// prepare the input params
@@ -68,9 +77,10 @@ public class BalanceDAOImpl implements BalanceDAO {
 			if ("000".equals(dbRespCode)) {
 				// prepare the dao response. i.e convert ResultSet response into dao response
 				while (rs.next()) {
-					daoResponse.setAvailablePts(rs.getString("avail_pts"));
-					daoResponse.setEarnedPts(rs.getString("earned_pts"));
-					daoResponse.setPendingPts(rs.getString("adjusted_pts"));
+					daoResponse.setAvailablePts(rs.getString(BalanceConstants.AVAIL_PTS));
+					daoResponse.setEarnedPts(rs.getString(BalanceConstants.EARNED_PTS));
+					daoResponse.setPendingPts(rs.getString(BalanceConstants.ADJ_PTS));
+
 				}
 
 			} else if ("100".equals(dbRespCode) || "101".equals(dbRespCode) || "102".equals(dbRespCode)
@@ -91,24 +101,17 @@ public class BalanceDAOImpl implements BalanceDAO {
 			// TODO : print error log
 			throw e;
 		} catch (Exception e) {
+			logger.fatal("Exception in DAO Layer", e);
 
-			e.printStackTrace();
+			//e.printStackTrace();
 			// TODO : print error log
 			throw new SystemException("1111", "unknown error from database");
 		}
-		System.out.println("Exit from dao :" + daoResponse);
+		logger.info("Exit from DAO Layer,Response to Service layer" + daoResponse);
+		//System.out.println("Exit from dao :" + daoResponse);
 		return daoResponse;
 	}
 
-	public static void main(String[] args) throws BusinessException, SystemException {
 
-		BalanceDAO dao = new BalanceDAOImpl();
-
-		BalanceDAORequest daoReq = new BalanceDAORequest();
-		daoReq.setClientId("web");
-		daoReq.setCardNum("05211140058239");
-		BalanceDAOResponse daoResp = dao.getBalance(daoReq);
-		System.out.println("daoResp is :" + daoResp);
-	}
 
 }
