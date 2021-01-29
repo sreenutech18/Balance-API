@@ -20,16 +20,16 @@ import com.citibank.rewards.balance.util.BalanceConstants;
 @Component
 public class BalanceDAOImpl implements BalanceDAO {
 
-	public BalanceDAOResponse getBalance(BalanceDAORequest daoReq) throws BusinessException, SystemException {
+	public BalanceDAOResponse getBalance(final BalanceDAORequest daoReq) throws BusinessException, SystemException {
 
-		System.out.println("Entered into dao :" + daoReq);
+		//System.out.println("Entered into dao :" + daoReq);
 		
 		String env = System.getProperty("env");
 		String fileName="properties/balance-"+env+"-db.properties";
 		
 		System.out.println("env : "+env+" fileName :"+fileName);
           
-		BalanceDAOResponse daoResponse = new BalanceDAOResponse();
+		final BalanceDAOResponse daoResponse = new BalanceDAOResponse();
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			InputStream input = BalanceDAOImpl.class.getClassLoader()
@@ -97,19 +97,10 @@ public class BalanceDAOImpl implements BalanceDAO {
 			// TODO : print error log
 			throw new SystemException("1111", "unknown error from database");
 		}
-		System.out.println("Exit from dao :" + daoResponse);
+		//System.out.println("Exit from dao :" + daoResponse);
 		return daoResponse;
 	}
 
-	public static void main(String[] args) throws BusinessException, SystemException {
 
-		BalanceDAO dao = new BalanceDAOImpl();
-
-		BalanceDAORequest daoReq = new BalanceDAORequest();
-		daoReq.setClientId("web");
-		daoReq.setCardNum("05211140058239");
-		BalanceDAOResponse daoResp = dao.getBalance(daoReq);
-		System.out.println("daoResp is :" + daoResp);
-	}
 
 }

@@ -2,10 +2,13 @@ package com.citibank.rewards.balance.exception;
 
 public class BusinessException extends Exception{
 	
-	private String respCode;
-	private String respMsg;
+	/**
+	 * 
+	 */
+	private  String respCode;
+	private  String respMsg;
 
-	public BusinessException(String respCode, String respMsg) {
+	public BusinessException(final String respCode, final String respMsg) {
 
 		this.respCode = respCode;
 		this.respMsg = respMsg;
@@ -17,6 +20,14 @@ public class BusinessException extends Exception{
 
 	public String getRespMsg() {
 		return respMsg;
+	}
+	
+	public void setRespCode(final String respCode) {
+		this.respCode = respCode;
+	}
+
+	public void setRespMsg(final String respMsg) {
+		this.respMsg = respMsg;
 	}
 
 }

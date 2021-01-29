@@ -31,7 +31,7 @@ public class BalanceController {
 
 		System.out.println("Entered into controller :"+cardNum);
 		// prepare the balance request
-		BalanceRequest request = new BalanceRequest();
+		final BalanceRequest request = new BalanceRequest();
 		request.setCardNum(cardNum);
 		request.setClientId(clientId);
 		request.setRequestId(requestId);
