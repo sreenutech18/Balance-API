@@ -17,6 +17,7 @@ import com.citibank.rewards.balance.model.BalanceDAORequest;
 import com.citibank.rewards.balance.model.BalanceDAOResponse;
 import com.citibank.rewards.balance.util.BalanceConstants;
 
+
 @Component
 public class BalanceDAOImpl implements BalanceDAO {
 
@@ -39,12 +40,17 @@ public class BalanceDAOImpl implements BalanceDAO {
 
 			properties.load(input);
 
+
 			String url = properties.getProperty(BalanceConstants.DB_URL);
 			String uname = properties.getProperty(BalanceConstants.USER_NAME);
 			String pwd = properties.getProperty(BalanceConstants.PASSWORD);
 
 			Connection connection = DriverManager.getConnection(url, uname, pwd);
 			String sql = BalanceConstants.SP_CALL;
+
+
+			Connection connection = DriverManager.getConnection(url, uname, pwd);
+		
 			// csmt object
 			CallableStatement cs = connection.prepareCall(sql);
 			// prepare the input params
@@ -72,6 +78,7 @@ public class BalanceDAOImpl implements BalanceDAO {
 					daoResponse.setAvailablePts(rs.getString(BalanceConstants.AVAIL_PTS));
 					daoResponse.setEarnedPts(rs.getString(BalanceConstants.EARNED_PTS));
 					daoResponse.setPendingPts(rs.getString(BalanceConstants.ADJ_PTS));
+
 				}
 
 			} else if ("100".equals(dbRespCode) || "101".equals(dbRespCode) || "102".equals(dbRespCode)
