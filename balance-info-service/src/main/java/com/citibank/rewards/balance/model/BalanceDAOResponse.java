@@ -10,6 +10,7 @@ public class BalanceDAOResponse {
 	private String availablePts;
 	private String pendingPts;
 	private String earnedPts;
+	private CustomerLevel customerLevel;
 	
 
 }
