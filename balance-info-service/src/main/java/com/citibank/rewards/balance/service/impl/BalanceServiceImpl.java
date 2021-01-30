@@ -12,28 +12,27 @@ import com.citibank.rewards.balance.model.BalanceDAOResponse;
 import com.citibank.rewards.balance.model.BalanceInfo;
 import com.citibank.rewards.balance.model.BalanceRequest;
 import com.citibank.rewards.balance.model.BalanceResponse;
+import com.citibank.rewards.balance.model.CustomerInfo;
 import com.citibank.rewards.balance.model.StatusBlock;
 import com.citibank.rewards.balance.service.BalanceService;
 
 @Component
 public class BalanceServiceImpl implements BalanceService {
-	private final static Logger logger=Logger.getLogger(BalanceServiceImpl.class);
- 
+	private final static Logger logger = Logger.getLogger(BalanceServiceImpl.class);
+
 	@Autowired
 	BalanceDAO balanceDAO;
 
 	public BalanceResponse getBalance(BalanceRequest request) throws BusinessException, SystemException {
-		
-		logger.info("In Service Layer Request From Controller:"+request);
-		//System.out.println("Entered into service BalanceServiceImpl"+request);
+
+		logger.info("In Service Layer Request From Controller:" + request);
+		// System.out.println("Entered into service BalanceServiceImpl"+request);
 		// prepare the dao request
 		BalanceDAORequest daoReq = new BalanceDAORequest();
 		daoReq.setCardNum(request.getCardNum());
 		daoReq.setClientId(request.getClientId());
 
 		BalanceDAOResponse daoResp = balanceDAO.getBalance(daoReq);
-		
-	
 
 		// prepare the service response
 
@@ -48,9 +47,12 @@ public class BalanceServiceImpl implements BalanceService {
 		balanceInfo.setEarnedPts(daoResp.getEarnedPts());
 		balanceInfo.setPendingPts(daoResp.getPendingPts());
 
+		CustomerInfo customerInfo = new CustomerInfo();
+		customerInfo.setCustomerLevel(daoResp.getCustomerLevel().getCustomerLev());
+
 		response.setStatusBlock(statusBlock);
 		response.setBalanceInfo(balanceInfo);
-		 logger.info("In Service Layer Response to Controller:"+response);
+		logger.info("In Service Layer Response to Controller:" + response);
 		return response;
 	}
 
