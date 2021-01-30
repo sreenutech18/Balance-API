@@ -49,7 +49,7 @@ public class BalanceDAOImpl implements BalanceDAO {
 			String sql = BalanceConstants.SP_CALL;
 
 
-			Connection connection = DriverManager.getConnection(url, uname, pwd);
+			
 		
 			// csmt object
 			CallableStatement cs = connection.prepareCall(sql);
