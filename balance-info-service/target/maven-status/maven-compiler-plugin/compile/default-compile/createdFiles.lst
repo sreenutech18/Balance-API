@@ -15,7 +15,9 @@ com\citibank\rewards\balance\controller\BalanceController.class
 com\citibank\rewards\balance\model\BalanceDAORequest.class
 com\citibank\rewards\balance\service\impl\BalanceServiceImpl.class
 com\citibank\rewards\balance\model\BalanceResponse.class
+com\citibank\rewards\balance\model\CustomerType.class
 com\citibank\rewards\balance\model\StatusBlock.class
 com\citibank\rewards\balance\configuration\BalanceConfiguration.class
+com\citibank\rewards\balance\utility\CustomerUtility.class
 com\citibank\rewards\balance\validator\BalanceValidator.class
 com\citibank\rewards\balance\model\BalanceDAOResponse.class

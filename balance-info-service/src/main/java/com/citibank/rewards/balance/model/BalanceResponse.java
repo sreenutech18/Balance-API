@@ -7,5 +7,6 @@ public class BalanceResponse {
 	
 	private StatusBlock statusBlock;
 	private BalanceInfo balanceInfo;
+	private CustomerType customerType;
 
 }

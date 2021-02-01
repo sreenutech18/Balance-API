@@ -18,30 +18,28 @@ import com.citibank.rewards.balance.model.BalanceDAORequest;
 import com.citibank.rewards.balance.model.BalanceDAOResponse;
 import com.citibank.rewards.balance.util.BalanceConstants;
 
-
 @Component
 public class BalanceDAOImpl implements BalanceDAO {
-	private  final static Logger logger = Logger.getLogger(BalanceDAOImpl.class);
+	private final static Logger logger = Logger.getLogger(BalanceDAOImpl.class);
+
 	public BalanceDAOResponse getBalance(final BalanceDAORequest daoReq) throws BusinessException, SystemException {
 
 		logger.info("Entered into DAO Layer,Request is coming from Service layer" + daoReq);
-		//System.out.println("Entered into dao :" + daoReq);
+		// System.out.println("Entered into dao :" + daoReq);
 
 		String env = System.getProperty("env");
-		String fileName="properties/balance-"+env+"-db.properties";
+		String fileName = "properties/balance-" + env + "-db.properties";
 
-		System.out.println("env : "+env+" fileName :"+fileName);
+		System.out.println("env : " + env + " fileName :" + fileName);
 
 		final BalanceDAOResponse daoResponse = new BalanceDAOResponse();
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			InputStream input = BalanceDAOImpl.class.getClassLoader()
-					.getResourceAsStream(fileName);
+			InputStream input = BalanceDAOImpl.class.getClassLoader().getResourceAsStream(fileName);
 
 			Properties properties = new Properties();
 
 			properties.load(input);
-
 
 			String url = properties.getProperty(BalanceConstants.DB_URL);
 			String uname = properties.getProperty(BalanceConstants.USER_NAME);
@@ -49,9 +47,6 @@ public class BalanceDAOImpl implements BalanceDAO {
 
 			Connection connection = DriverManager.getConnection(url, uname, pwd);
 			String sql = BalanceConstants.SP_CALL;
-
-
-
 
 			// csmt object
 			CallableStatement cs = connection.prepareCall(sql);
@@ -103,15 +98,14 @@ public class BalanceDAOImpl implements BalanceDAO {
 		} catch (Exception e) {
 			logger.fatal("Exception in DAO Layer", e);
 
-			//e.printStackTrace();
+			// e.printStackTrace();
 			// TODO : print error log
 			throw new SystemException("1111", "unknown error from database");
 		}
+
 		logger.info("Exit from DAO Layer,Response to Service layer" + daoResponse);
-		//System.out.println("Exit from dao :" + daoResponse);
+		// System.out.println("Exit from dao :" + daoResponse);
 		return daoResponse;
 	}
-
-
 
 }
