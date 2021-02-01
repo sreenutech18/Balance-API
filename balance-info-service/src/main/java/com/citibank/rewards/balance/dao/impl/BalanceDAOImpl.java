@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.Types;
 import java.util.Properties;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import com.citibank.rewards.balance.dao.BalanceDAO;
@@ -20,10 +21,10 @@ import com.citibank.rewards.balance.util.BalanceConstants;
 
 @Component
 public class BalanceDAOImpl implements BalanceDAO {
-
+	private  Logger logger = Logger.getLogger(BalanceDAOImpl.class);
 	public BalanceDAOResponse getBalance(BalanceDAORequest daoReq) throws BusinessException, SystemException {
 
-		System.out.println("Entered into dao :" + daoReq);
+		logger.info("Entered into DAO Layer,Request is coming from Service layer" + daoReq);
 		
 		String env = System.getProperty("env");
 		String fileName="properties/balance-"+env+"-db.properties";
@@ -104,7 +105,7 @@ public class BalanceDAOImpl implements BalanceDAO {
 			// TODO : print error log
 			throw new SystemException("1111", "unknown error from database");
 		}
-		System.out.println("Exit from dao :" + daoResponse);
+		logger.info("Exit from DAO Layer,Response to Service layer" + daoResponse);
 		return daoResponse;
 	}
 

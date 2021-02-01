@@ -1,10 +1,10 @@
 package com.citibank.rewards.balance.service.impl;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.citibank.rewards.balance.dao.BalanceDAO;
-import com.citibank.rewards.balance.dao.impl.BalanceDAOImpl;
 import com.citibank.rewards.balance.exception.BusinessException;
 import com.citibank.rewards.balance.exception.SystemException;
 import com.citibank.rewards.balance.model.BalanceDAORequest;
@@ -18,12 +18,14 @@ import com.citibank.rewards.balance.service.BalanceService;
 @Component
 public class BalanceServiceImpl implements BalanceService {
 
+	private Logger logger=Logger.getLogger(BalanceServiceImpl.class);
+	 
 	@Autowired
 	BalanceDAO balanceDAO;
 
 	public BalanceResponse getBalance(BalanceRequest request) throws BusinessException, SystemException {
 
-		System.out.println("Entered into service BalanceServiceImpl"+request);
+		logger.info("In Service Layer Request From Controller:"+request);
 		// prepare the dao request
 		BalanceDAORequest daoReq = new BalanceDAORequest();
 		daoReq.setCardNum(request.getCardNum());
@@ -48,7 +50,7 @@ public class BalanceServiceImpl implements BalanceService {
 
 		response.setStatusBlock(statusBlock);
 		response.setBalanceInfo(balanceInfo);
-
+		 logger.info("In Service Layer Response to Controller:"+response);
 		return response;
 	}
 
