@@ -52,6 +52,8 @@ public class BalanceController {
 	@GetMapping("/health")
 	public String healthCheck() {
 		
+		System.out.println("Entered into healthCheck :");
+		
 		return "Service is up and running";
 	}
 

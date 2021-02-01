@@ -19,6 +19,8 @@ public class BalanceExceptionHandler {
 	public ErrorResponse handleRequestInvalidException(BalanceRequestInvalidDataException exception) {
 
 		ErrorResponse response = buildErrorResp(exception.getRespCode(), exception.getRespMsg());
+		
+		//error log
 
 		return response;
 	}
@@ -27,7 +29,7 @@ public class BalanceExceptionHandler {
 	public ErrorResponse handleDataErrors(BusinessException exception) {
         System.out.println("Entered into business Exception");
 		ErrorResponse response = buildErrorResp(exception.getRespCode(), exception.getRespMsg());
-
+		//error log
 		return response;
 	}
 
@@ -35,7 +37,7 @@ public class BalanceExceptionHandler {
 	public ErrorResponse handleSystemErrors(SystemException exception) {
 
 		ErrorResponse response = buildErrorResp(exception.getRespCode(), exception.getRespMsg());
-
+		//error log
 		return response;
 	}
 
@@ -45,6 +47,8 @@ public class BalanceExceptionHandler {
 		exception.printStackTrace();
 		
 		ErrorResponse response = buildErrorResp("22222", "unknown error from database:" + exception.getMessage());
+		
+		//error log
 		
 	    return response;
 	}
