@@ -16,7 +16,6 @@ import com.citibank.rewards.balance.exception.BusinessException;
 import com.citibank.rewards.balance.exception.SystemException;
 import com.citibank.rewards.balance.model.BalanceDAORequest;
 import com.citibank.rewards.balance.model.BalanceDAOResponse;
-import com.citibank.rewards.balance.model.CustomerLevel;
 import com.citibank.rewards.balance.util.BalanceConstants;
 
 @Component
@@ -79,8 +78,6 @@ public class BalanceDAOImpl implements BalanceDAO {
 
 				}
 
-				daoResponse.setCustomerLevel(new CustomerType().getCustomerLevel(daoResponse));
-
 			} else if ("100".equals(dbRespCode) || "101".equals(dbRespCode) || "102".equals(dbRespCode)
 					|| "103".equals(dbRespCode)) {
 
@@ -109,26 +106,6 @@ public class BalanceDAOImpl implements BalanceDAO {
 		logger.info("Exit from DAO Layer,Response to Service layer" + daoResponse);
 		// System.out.println("Exit from dao :" + daoResponse);
 		return daoResponse;
-	}
-
-	private class CustomerType {
-
-		public CustomerLevel getCustomerLevel(BalanceDAOResponse daoResponse) {
-			CustomerLevel cLevel = new CustomerLevel();
-			final int availablePts = Integer.parseInt(daoResponse.getAvailablePts());
-
-			if (availablePts >= 100000) {
-				cLevel.setCustomerLev("VVIC");
-			} else if (availablePts < 100000 && availablePts >= 50000) {
-				cLevel.setCustomerLev("VIC");
-			} else if (availablePts < 50000 && availablePts >= 10000) {
-				cLevel.setCustomerLev("IC");
-			} else
-				cLevel.setCustomerLev("NC");
-
-			return cLevel;
-
-		}
 	}
 
 }

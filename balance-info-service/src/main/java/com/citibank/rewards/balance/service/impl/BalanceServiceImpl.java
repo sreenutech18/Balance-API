@@ -12,9 +12,9 @@ import com.citibank.rewards.balance.model.BalanceDAOResponse;
 import com.citibank.rewards.balance.model.BalanceInfo;
 import com.citibank.rewards.balance.model.BalanceRequest;
 import com.citibank.rewards.balance.model.BalanceResponse;
-import com.citibank.rewards.balance.model.CustomerInfo;
 import com.citibank.rewards.balance.model.StatusBlock;
 import com.citibank.rewards.balance.service.BalanceService;
+import com.citibank.rewards.balance.utility.CustomerUtility;
 
 @Component
 public class BalanceServiceImpl implements BalanceService {
@@ -46,12 +46,12 @@ public class BalanceServiceImpl implements BalanceService {
 		balanceInfo.setAvailablePts(daoResp.getAvailablePts());
 		balanceInfo.setEarnedPts(daoResp.getEarnedPts());
 		balanceInfo.setPendingPts(daoResp.getPendingPts());
-
-		CustomerInfo customerInfo = new CustomerInfo();
-		customerInfo.setCustomerLevel(daoResp.getCustomerLevel().getCustomerLev());
-
+		// customer type based on availablePoint
+		response.setCustomerType(CustomerUtility.getCustomerLevel(daoResp.getAvailablePts().toString()));
+		
 		response.setStatusBlock(statusBlock);
 		response.setBalanceInfo(balanceInfo);
+		
 		logger.info("In Service Layer Response to Controller:" + response);
 		return response;
 	}
