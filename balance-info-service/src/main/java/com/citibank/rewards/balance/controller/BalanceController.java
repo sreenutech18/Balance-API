@@ -1,6 +1,7 @@
 package com.citibank.rewards.balance.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,6 +47,12 @@ public class BalanceController {
 		System.out.println("Exit from controller :"+response);
 		return response;
 
+	}
+	
+	@GetMapping("/health")
+	public String healthCheck() {
+		
+		return "Service is up and running";
 	}
 
 }
