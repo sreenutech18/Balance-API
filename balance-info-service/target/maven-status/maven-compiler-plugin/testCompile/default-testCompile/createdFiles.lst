@@ -1,4 +1,0 @@
-com\citibank\rewards\balance\controller\BalanceControllerTest.class
-com\citibank\rewards\balance\validator\BalanceValidatorTest.class
-com\citibank\rewards\balance\service\impl\BalanceServiceImplTest.class
-com\citibank\rewards\balance\dao\impl\BalanceDAOImplTest.class
