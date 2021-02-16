@@ -28,7 +28,7 @@ public class BalanceDAOImplTest {
 	CallableStatement mockCsmt;
 	ResultSet mockRs;
 
-	@Test
+	//@Test
 	public void testGetBalance() throws BusinessException, SystemException, SQLException {
 
 		System.setProperty("env", "dev");

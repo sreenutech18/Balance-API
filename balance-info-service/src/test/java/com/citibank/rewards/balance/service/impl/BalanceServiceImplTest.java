@@ -43,7 +43,7 @@ public class BalanceServiceImplTest {
 	public void tearDown() throws Exception {
 	}
 
-	@Test
+	//@Test
 	public void testGetBalance() throws BusinessException, SystemException {
 
 		BalanceRequest request = new BalanceRequest();
