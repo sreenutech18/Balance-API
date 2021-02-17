@@ -113,6 +113,13 @@
 					</formats>
 				</configuration>
 			</plugin>
+			<plugin>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<version>3.10.0</version>
+				<configuration>
+					<targetJdk>1.6</targetJdk>
+				</configuration>
+			</plugin>
 		</plugins>
 	</reporting>
 
