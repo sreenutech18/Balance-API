@@ -47,10 +47,7 @@ public class BalanceDAOImpl implements BalanceDAO {
 
 			Connection connection = DriverManager.getConnection(url, uname, pwd);
 			String sql = BalanceConstants.SP_CALL;
-
-
-			Connection connection = DriverManager.getConnection(url, uname, pwd);
-		
+	
 			// csmt object
 			CallableStatement cs = connection.prepareCall(sql);
 			// prepare the input params
