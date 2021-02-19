@@ -135,10 +135,6 @@
 			<url>http://localhost:8081/repository/edr-snapshot/</url>
 		</snapshotRepository>
 	</distributionManagement>
-	<scm>
-		<connection>scm:git:https://github.com/sreenutech18/Balance-API.git</connection>
-		<url>https://github.com/sreenutech18/Balance-API.git</url>
-		<developerConnection>scm:git:https://github.com/sreenutech18/Balance-API.git</developerConnection>
-	</scm>
+
 
 </project>
