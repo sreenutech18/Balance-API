@@ -123,4 +123,22 @@
 		</plugins>
 	</reporting>
 
+	<distributionManagement>
+		<repository>
+			<id>deployment</id>
+			<name>internal  release</name>
+			<url>http://localhost:8081/repository/edr-releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>deployment</id>
+			<name>internal snapshot release</name>
+			<url>http://localhost:8081/repository/edr-snapshot/</url>
+		</snapshotRepository>
+	</distributionManagement>
+	<scm>
+		<connection>scm:git:https://github.com/sreenutech18/Balance-API.git</connection>
+		<url>https://github.com/sreenutech18/Balance-API.git</url>
+		<developerConnection>scm:git:https://github.com/sreenutech18/Balance-API.git</developerConnection>
+	</scm>
+
 </project>
