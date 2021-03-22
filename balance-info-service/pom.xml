@@ -123,7 +123,7 @@
 		</plugins>
 	</reporting>
 
-	<distributionManagement>
+<!-- 	<distributionManagement>
 		<repository>
 			<id>deployment</id>
 			<name>internal  release</name>
@@ -135,6 +135,6 @@
 			<url>http://localhost:8081/repository/edr-snapshot/</url>
 		</snapshotRepository>
 	</distributionManagement>
-
+ -->
 
 </project>
